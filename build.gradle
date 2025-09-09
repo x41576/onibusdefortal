@@ -1,0 +1,67 @@
+plugins {
+    id("io.micronaut.application") version "4.5.4"
+    id("com.gradleup.shadow") version "8.3.7"
+    id("io.micronaut.aot") version "4.5.4"
+}
+
+version = "0.1"
+group = "com.x415"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.views:micronaut-views-fieldset")
+    implementation("io.micronaut.views:micronaut-views-thymeleaf")
+    implementation("io.micronaut.cache:micronaut-cache-caffeine")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.yaml:snakeyaml")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+}
+
+application {
+    mainClass = "com.x415.Application"
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(17)
+    targetCompatibility = JavaVersion.toVersion(17)
+}
+
+graalvmNative {
+    binaries {
+        all {
+            javaLauncher.set(javaToolchains.launcherFor {
+                languageVersion.set(JavaLanguageVersion.of(17))
+                vendor.set(JvmVendorSpec.GRAAL_VM)
+            })
+        }
+    }
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+
+    processing {
+        incremental(true)
+        annotations("com.x415.*")
+    }
+
+    aot {
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
+}

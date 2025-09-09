@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ônibus de Fortaleza</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221em%22 font-size=%2280%22>🚌</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simpledotcss/2.3.7/simple.min.css">
+    <style>
+        :root {
+            --accent: #54bae2;
+        }
+
+        main, header {
+            font-family: "Inter", sans-serif;
+        }
+
+        pre {
+            font-family: "JetBrains Mono", monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/" th:href="@{/}"
+                       th:classappend="${uri.equals('')} ? 'current' : ''">
+                       Início
+                    </a>
+                </li>
+                <li>
+                    <a href="/linhas" th:href="@{/linhas}"
+                       th:classappend="${uri.equals('/linhas')} ? 'current' : ''">
+                       Linhas
+                    </a>
+                </li>
+                <li>
+                    <a href="/empresas" th:href="@{/empresas}"
+                       th:classappend="${uri.equals('/empresas')} ? 'current' : ''">
+                       Empresas
+                    </a>
+                </li>
+                <li>
+                    <a href="/tarifa" th:href="@{/tarifa}"
+                       th:classappend="${uri.equals('/tarifa')} ? 'current' : ''">
+                       Tarifa
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <h1>Ônibus de Fortaleza</h1>
+    </header>
+
+    <main>
+        <div th:replace="~{${main}}"></div>
+    </main>
+</body>
+
+</html>

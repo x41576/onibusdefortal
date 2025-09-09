@@ -1,0 +1,12 @@
+micronaut:
+  application:
+    name: onibusdefortal
+  server:
+    port: 8086
+  views:
+    enabled: true
+    thymeleaf:
+      enabled: true
+  caches:
+    linhas-cache:
+      expire-after-write: 6h
