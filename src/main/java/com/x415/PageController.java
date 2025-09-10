@@ -23,8 +23,7 @@ import io.micronaut.views.View;
 
 @Controller
 public class PageController {
-
-    private final Logger log = LoggerFactory.getLogger(PageController.class);
+    private static final Logger log = LoggerFactory.getLogger(PageController.class);
 
     private SondaClient sondaClient;
 
@@ -48,27 +47,27 @@ public class PageController {
 
         StringBuilder sb = new StringBuilder();
         for (Linha linha : todasLinhas) {
-            if (linha.getEmpresas().get(0).getNome().toLowerCase().contains("sindionibus")
-                    || linha.getEmpresas().get(0).getNome().toLowerCase().contains("top bus")
-                    || linha.getEmpresas().get(0).getNome().toLowerCase().contains("topbus")
-                    || linha.getName().toLowerCase().contains("teste")
-                    || linha.getNumero().contains("0000")) {
+            String nomeEmpresaTemp = linha.getEmpresas().get(0).getNome().toLowerCase();
+            String nomeLinhaTemp = linha.getName().toLowerCase();
+            String numeroLinha = linha.getNumero();
+
+            if (nomeEmpresaTemp.contains("sindionibus")
+                    || nomeEmpresaTemp.contains("top bus")
+                    || nomeEmpresaTemp.contains("topbus")
+                    || nomeLinhaTemp.contains("teste")
+                    || numeroLinha.contains("0000")) {
                 continue;
             }
 
-            sb.append("<b>")
-              .append(linha.getName())
-              .append("</b>")
-              .append("\nEmpresas operando:\n");
+            sb.append("<b>").append(linha.getName())
+              .append("</b>").append("\nEmpresas operando:\n");
 
             for (Empresa empresa : linha.getEmpresas()) {
                 if (empresa.getNome().toLowerCase().contains("sonda")) {
                     continue;
                 }
 
-                sb.append("- ")
-                  .append(empresa.getNome())
-                  .append('\n');
+                sb.append("- ").append(empresa.getNome()).append('\n');
             }
 
             sb.append('\n');

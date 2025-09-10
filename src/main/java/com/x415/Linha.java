@@ -8,7 +8,6 @@ import lombok.Value;
 @Serdeable
 @Value
 public final class Linha {
-
     private final String idLinha;
     private final Long id;
     private final String name;
@@ -21,7 +20,6 @@ public final class Linha {
     @Serdeable
     @Value
     public static final class Trajeto {
-
         private final String _id;
         private final Long id_migracao;
         private final String nome;
@@ -32,7 +30,6 @@ public final class Linha {
         @Serdeable
         @Value
         public static final class StartPoint {
-
             private final String _id;
             private final Long id_migracao;
         }
@@ -40,7 +37,6 @@ public final class Linha {
         @Serdeable
         @Value
         public static final class EndPoint {
-
             private final String _id;
             private final Long id_migracao;
         }
@@ -49,7 +45,6 @@ public final class Linha {
     @Serdeable
     @Value
     public static final class Empresa {
-
         private final Long id;
         private final String nome;
     }

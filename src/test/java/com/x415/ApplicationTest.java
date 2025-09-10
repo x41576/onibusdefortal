@@ -9,7 +9,6 @@ import jakarta.inject.Inject;
 
 @MicronautTest
 class ApplicationTest {
-
     @Inject
     EmbeddedApplication<?> application;
 
