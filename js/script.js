@@ -44,13 +44,20 @@
         if (!only.includes(busServiceNumber)) return;
         if (!latLng || !latLng.lat || !latLng.lng) return;
 
-        const vehicleKey = `${busServiceNumber}-${codVehicle}`;
-        if (seenVehicles.has(vehicleKey)) return;
-        seenVehicles.add(vehicleKey);
+        if (seenVehicles.has(codVehicle)) return;
+        seenVehicles.add(codVehicle);
 
-        L.marker([latLng.lat, latLng.lng])
-            .addTo(markers)
-            .bindPopup(`${busServiceNumber} (${codVehicle}) → ${destination}`);
+        const color = "blue";
+
+        L.circleMarker([latLng.lat, latLng.lng], {
+            radius: 7,
+            color,
+            fillColor: color,
+            fillOpacity: 0.9,
+            weight: 2
+        })
+        .addTo(markers)
+        .bindPopup(`${busServiceNumber} (${codVehicle}) → ${destination}`);
     };
 
     const load = async () => {
@@ -59,8 +66,8 @@
 
             const trajetos = [];
             for (const line of allLines) {
-                if (only.length && !only.includes(line.numero)) continue;
-                for (const t of line.trajetos || []) {
+                if (!only.includes(line.numero)) continue;
+                for (const t of line.trajetos) {
                     if (t?.startPoint?.id_migracao != null) {
                         trajetos.push(t);
                     }
