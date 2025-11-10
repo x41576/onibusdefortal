@@ -47,17 +47,9 @@
         if (seenVehicles.has(codVehicle)) return;
         seenVehicles.add(codVehicle);
 
-        const color = "blue";
-
-        L.circleMarker([latLng.lat, latLng.lng], {
-            radius: 7,
-            color,
-            fillColor: color,
-            fillOpacity: 0.9,
-            weight: 2
-        })
-        .addTo(markers)
-        .bindPopup(`${busServiceNumber} (${codVehicle}) → ${destination}`);
+        L.marker([latLng.lat, latLng.lng])
+            .addTo(markers)
+            .bindPopup(`${busServiceNumber} (${codVehicle}) → ${destination}`);
     };
 
     const load = async () => {
@@ -81,7 +73,7 @@
                 fetchJSON(`${url}/bustop/${t.id_migracao}/281`)
             );
 
-            const bustopResults = await processQueue(bustopRequests, 6, 150);
+            const bustopResults = await processQueue(bustopRequests, 4, 150);
 
             const uniqueStopIds = new Set();
             const fromPointRequests = [];
@@ -117,8 +109,12 @@
     const busNumberInput = document.getElementById("busNumber");
     const searchButton = document.getElementById("searchButton");
     const resultMessage = document.getElementById("resultMessage");
+    let loading = false;
 
     searchButton.addEventListener("click", async () => {
+        if (loading) return;
+        loading = true;
+
         const busNumber = busNumberInput.value.trim();
 
         seenVehicles.clear();
@@ -133,6 +129,7 @@
 
             resultMessage.textContent = `Encontrados ${seenVehicles.size} veículos`;
             console.log(`Total de veículos plotados: ${seenVehicles.size}`);
+            loading = false;
         }
     });
 })();
