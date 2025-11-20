@@ -3,7 +3,8 @@
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
-        detectRetina: true
+        detectRetina: true,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
     const markers = L.layerGroup().addTo(map);
@@ -123,7 +124,7 @@
 
         if (busNumber) {
             only.push(busNumber);
-            resultMessage.textContent = "Carregando...";
+            resultMessage.textContent = "Buscando...";
 
             await load();
 
